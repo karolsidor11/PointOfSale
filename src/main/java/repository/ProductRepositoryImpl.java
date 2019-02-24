@@ -12,10 +12,10 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     public ProductRepositoryImpl() {
 
-        productList.add(new Product("Bread",  new BigDecimal(2), "XDF123"));
-        productList.add(new Product("Butter",  new BigDecimal(4), "XDY321"));
-        productList.add(new Product("Apple",  new BigDecimal(2), "XDA234"));
-        productList.add(new Product("Snickers",  new BigDecimal(3), "XDC456"));
+        productList.add(new Product("Bread", new BigDecimal(2), "XDF123"));
+        productList.add(new Product("Butter", new BigDecimal(4), "XDY321"));
+        productList.add(new Product("Apple", new BigDecimal(2), "XDA234"));
+        productList.add(new Product("Snickers", new BigDecimal(3), "XDC456"));
     }
 
     @Override
@@ -27,4 +27,5 @@ public class ProductRepositoryImpl implements ProductRepository {
     public List<Product> getAllProducts() {
         return productList;
     }
+
 }
