@@ -54,5 +54,4 @@ public class ProductRepositoryTest {
 
         assertEquals(xds123, productRepository.getProductByBarCode("XDS123"));
     }
-
 }
