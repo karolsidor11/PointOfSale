@@ -13,45 +13,64 @@ import static org.junit.Assert.assertNotNull;
 public class ProductRepositoryTest {
 
     private ProductRepository productRepository;
-    private Product product;
 
     @Before
-    public void before() {
+    public void setup() {
         productRepository = new ProductRepositoryImpl();
-        product = new Product("Chessse", new BigDecimal(12), "XDS123");
-
+        Product builder = new Product.Builder().name("Chessse").price(new BigDecimal(12)).barcode("XDS123").build();
     }
 
     @Test
-    public void shouldAllProduct() {
+    public void shouldReturnAllProduct() {
+
+        //  when
         List<Product> allProducts = productRepository.getAllProducts();
+
+        // then
         assertEquals(4, allProducts.size());
     }
 
     @Test
     public void shouldGetProductFromList() {
 
-        Product xdf123 = productRepository.getProductByBarCode("XDF123");
+        // given
+        String barcode = "XDF123";
+
+        // when
+        Product xdf123 = productRepository.getProductByBarCode(barcode);
+
+        //  then
         assertNotNull(xdf123);
+        assertEquals("XDF123", xdf123.getBarcode());
     }
 
     @Test
     public void shouldAddProductToOrder() {
 
-        List<Product> allProducts = productRepository.getAllProducts();
-        allProducts.add(product);
+        // given
+        Product.Builder product = new Product.Builder();
+        Product build = product.name("Banana").barcode("XDF345").price(new BigDecimal(22)).build();
 
+        //  when
+        List<Product> allProducts = productRepository.getAllProducts();
+        allProducts.add(build);
+
+        //   then
         assertEquals(5, allProducts.size());
+        assertEquals("XDF345", build.getBarcode());
+
     }
 
     @Test
-    public void shouldCheckProductByID(){
+    public void shouldCheckProductByID() {
 
-        List<Product> allProducts = productRepository.getAllProducts();
-        allProducts.add(product);
+        // given
+        String barcode = "XDY321";
 
-        Product xds123 = productRepository.getProductByBarCode("XDS123");
+        // when
+        Product xds123 = productRepository.getProductByBarCode(barcode);
 
-        assertEquals(xds123, productRepository.getProductByBarCode("XDS123"));
+        //  then
+        assertEquals(barcode, xds123.getBarcode());
     }
 }

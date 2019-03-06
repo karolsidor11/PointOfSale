@@ -2,26 +2,28 @@ package service.accessProductService;
 
 import model.Product;
 import repository.ProductRepository;
-import repository.ProductRepositoryImpl;
 import service.ioService.IOService;
-import service.ioService.IOServiceImpl;
 
 import java.util.Optional;
 
-public class accessProductServiceImpl implements accessProductService {
+public class AccessProductServiceImpl implements AccessProductService {
 
     private IOService ioService;
     private ProductRepository productRepository;
 
-    public accessProductServiceImpl() {
-        ioService = new IOServiceImpl();
-        productRepository = new ProductRepositoryImpl();
+    public AccessProductServiceImpl(IOService ioService, ProductRepository productRepository) {
+        this.ioService = ioService;
+        this.productRepository = productRepository;
     }
 
     @Override
     public Optional<Product> getProductById(String barcode) {
 
-        if (barcode.isEmpty()) {
+        return getProduct(barcode);
+    }
+
+    private Optional<Product> getProduct(String barcode) {
+        if (barcode.equals("")) {
             ioService.printOnLcd("Invalid bar-code");
             return Optional.empty();
         } else {

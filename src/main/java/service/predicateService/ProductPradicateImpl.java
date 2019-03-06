@@ -1,32 +1,33 @@
 package service.predicateService;
 
 import model.Product;
+import service.accessProductService.AccessProductService;
 import service.ioService.IOService;
-import service.ioService.IOServiceImpl;
 import service.orderService.OrderService;
-import service.orderService.OrderServiceImpl;
-import service.accessProductService.accessProductService;
-import service.accessProductService.accessProductServiceImpl;
 
 import java.util.Optional;
 
 public class ProductPradicateImpl implements ProductPredicate {
 
-    private accessProductService accessProductService;
+    private AccessProductService AccessProductService;
     private IOService ioService;
     private OrderService orderService;
 
-    public ProductPradicateImpl() {
-        accessProductService = new accessProductServiceImpl();
-        ioService = new IOServiceImpl();
-        orderService = new OrderServiceImpl();
+    public ProductPradicateImpl(AccessProductService accessProductService, IOService ioService, OrderService orderService) {
+        this.AccessProductService = accessProductService;
+        this.orderService = orderService;
+        this.ioService = ioService;
     }
 
     @Override
     public String checkProduct(String barcode) {
 
-        Optional<Product> productByID = accessProductService.getProductById(barcode);
+        Optional<Product> productByID = AccessProductService.getProductById(barcode);
 
+        return getProduct(productByID);
+    }
+
+    private String getProduct(Optional<Product> productByID) {
         if (productByID.isPresent()) {
             orderService.add(productByID.get());
             return ioService.printOnLcd(productByID.get().getName() + " " + productByID.get().getPrice());

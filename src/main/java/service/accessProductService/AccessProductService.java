@@ -4,7 +4,7 @@ import model.Product;
 
 import java.util.Optional;
 
-public interface accessProductService {
+public interface AccessProductService {
 
     Optional<Product> getProductById(String barcode);
 }
