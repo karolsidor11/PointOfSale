@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class Product {
+public class Product implements Serializable {
 
     private String name;
     private BigDecimal price;
@@ -16,6 +17,12 @@ public class Product {
         this.name = name;
         this.price = price;
         this.barcode = barcode;
+    }
+
+    public Product(Builder builder) {
+        this.name = builder.name;
+        this.price = builder.price;
+        this.barcode = builder.barcode;
     }
 
     public String getName() {
@@ -59,5 +66,30 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" + "name='" + name + '\'' + ", price=" + price + ", barcode='" + barcode + '\'' + '}';
+    }
+
+    public static class Builder {
+        private String name;
+        private BigDecimal price;
+        private String barcode;
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder price(BigDecimal price) {
+            this.price = price;
+            return this;
+        }
+
+        public Builder barcode(String barcode) {
+            this.barcode = barcode;
+            return this;
+        }
+
+        public Product build() {
+            return new Product(this);
+        }
     }
 }
