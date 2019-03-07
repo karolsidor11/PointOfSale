@@ -1,5 +1,6 @@
 package service.productService;
 
+import enums.IOMessage;
 import service.accessProductService.AccessProductService;
 import service.ioService.IOService;
 import service.orderService.OrderService;
@@ -27,9 +28,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private String getSale(String barcode) {
-        if (barcode.equals("EXIT")) {
+        if (barcode.equals(IOMessage.EXIT.toString())) {
             ioService.printOnPrinter(orderService.showOrderItem() + " " + orderService.showPriceOrder());
-            return ioService.printOnLcd("Your order:" + orderService.showOrderItem() + orderService.showPriceOrder());
+            return ioService.printOnLcd(IOMessage.YOUR_ORDER.toString() + orderService.showOrderItem() + orderService.showPriceOrder());
         } else {
             return productPredicate.checkProduct(barcode);
 

@@ -1,3 +1,4 @@
+import enums.IOMessage;
 import model.Product;
 import repository.ProductRepository;
 import repository.ProductRepositoryImpl;
@@ -38,6 +39,8 @@ public class PointOfSale {
         System.out.println(s);
 
         System.out.println(orderService.showPriceOrder());
+
+        System.out.println(IOMessage.PRODUCT_NOT_FOUND.toString());
 
     }
 

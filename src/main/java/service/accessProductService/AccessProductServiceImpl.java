@@ -1,5 +1,6 @@
 package service.accessProductService;
 
+import enums.IOMessage;
 import model.Product;
 import repository.ProductRepository;
 import service.ioService.IOService;
@@ -24,7 +25,7 @@ public class AccessProductServiceImpl implements AccessProductService {
 
     private Optional<Product> getProduct(String barcode) {
         if (barcode.equals("")) {
-            ioService.printOnLcd("Invalid bar-code");
+            ioService.printOnLcd(IOMessage.INVALID_BAR_CODE.toString());
             return Optional.empty();
         } else {
             return Optional.ofNullable(productRepository.getProductByBarCode(barcode));

@@ -1,5 +1,6 @@
 package service.predicateService;
 
+import enums.IOMessage;
 import model.Product;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -68,14 +69,14 @@ class ProductPradicateImplTest {
 
 //       when
         when(accessProductService.getProductById(barcode)).thenReturn(Optional.empty());
-        when(ioService.printOnLcd("Product not found")).thenReturn("Product not found");
+        when(ioService.printOnLcd(IOMessage.PRODUCT_NOT_FOUND.toString())).thenReturn(IOMessage.PRODUCT_NOT_FOUND.toString());
         String s = productPredicate.checkProduct(barcode);
 
 //        then
         verify(accessProductService, times(1)).getProductById(anyString());
         verify(ioService, times(1)).printOnLcd(anyString());
         verify(orderService, times(0)).add(any(Product.class));
-        assertEquals("Product not found", productPredicate.checkProduct(barcode));
+        assertEquals(IOMessage.PRODUCT_NOT_FOUND.toString(), productPredicate.checkProduct(barcode));
 
     }
     @Test

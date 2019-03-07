@@ -1,5 +1,6 @@
 package service.predicateService;
 
+import enums.IOMessage;
 import model.Product;
 import service.accessProductService.AccessProductService;
 import service.ioService.IOService;
@@ -12,6 +13,7 @@ public class ProductPradicateImpl implements ProductPredicate {
     private AccessProductService AccessProductService;
     private IOService ioService;
     private OrderService orderService;
+    private IOMessage ioMessage;
 
     public ProductPradicateImpl(AccessProductService accessProductService, IOService ioService, OrderService orderService) {
         this.AccessProductService = accessProductService;
@@ -32,7 +34,7 @@ public class ProductPradicateImpl implements ProductPredicate {
             orderService.add(productByID.get());
             return ioService.printOnLcd(productByID.get().getName() + " " + productByID.get().getPrice());
         } else {
-            return ioService.printOnLcd("Product not found");
+            return ioService.printOnLcd(IOMessage.PRODUCT_NOT_FOUND.toString());
         }
     }
 }
